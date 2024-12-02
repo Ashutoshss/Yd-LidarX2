@@ -1,38 +1,71 @@
-# Yd-LidarX2
-This repo contains ROS2 Workspace of Ydlidar-X2 
-original repo ``` https://github.com/YDLIDAR/ydlidar_ros2_driver.git```
-fork reop ``` https://github.com/Ashutoshss/Yd-LidarX2.git ```
-with some change to the repo for my X2
+Yd-LidarX2
+This repository contains the ROS 2 workspace for the YDLidar X2, based on the original ydlidar_ros2_driver repository.
+Forked repository: Ashutoshss/Yd-LidarX2, with modifications for the X2 model.
 
-make a workspace ```mkdir -p ~/ros2_ws/src```
-build it ```colcon build --symlink-install```
-clone the repo ``` git clone https://github.com/Ashutoshss/Yd-LidarX2.git ```
+Setup Instructions
+1. Create a ROS 2 Workspace
+bash
+Copy code
+mkdir -p ~/ros2_ws/src
+cd ~/ros2_ws
+2. Clone the Repository
+bash
+Copy code
+cd ~/ros2_ws/src
+git clone https://github.com/Ashutoshss/Yd-LidarX2.git
+3. Build the Workspace
+bash
+Copy code
+cd ~/ros2_ws
+colcon build --symlink-install
+4. Set Up the YDLidar SDK
+You will need the official YDLidar SDK.
 
-we also need to setup the ydlidar_sdk
-from official https://github.com/YDLIDAR/YDLidar-SDK.git
-
-additionally
-Install CMake
+Install CMake and Required Packages
+bash
+Copy code
 sudo apt install cmake pkg-config
-
-Install Extra
 sudo apt-get install swig
 sudo apt-get install python3-pip
-
+Clone and Build the YDLidar SDK
+bash
+Copy code
 mkdir -p ~/YDLidar-SDK
-git colne https://github.com/YDLIDAR/YDLidar-SDK.git
+cd ~/YDLidar-SDK
+git clone https://github.com/YDLIDAR/YDLidar-SDK.git
 cd YDLidar-SDK
 mkdir ./build/
-cd YDLidar-SDK/build
+cd build
 cmake ..
 make
 sudo make install
-cd YDLidar-SDK
+Install Python Package
+bash
+Copy code
+cd ~/YDLidar-SDK
 pip install .
-cd
+Grant USB Permissions
+bash
+Copy code
 sudo chmod 777 /dev/ttyUSB0
+Run the Test Program
+bash
+Copy code
 cd ~/YDLidar-SDK/build
 ./tri_test
-
-build it again```colcon build --symlink-install```
+5. Rebuild the ROS 2 Workspace
+bash
+Copy code
+cd ~/ros2_ws
+colcon build --symlink-install
+6. Source the Environment
+bash
+Copy code
 source ~/.bashrc
+7. Launch the Driver
+bash
+Copy code
+ros2 launch ydlidar_ros2_driver ydlidar_launch_view.py
+Notes
+Ensure that the baud rate and model-specific settings are correctly configured in the launch file or parameters.
+For troubleshooting, refer to the YDLidar documentation.
